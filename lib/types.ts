@@ -21,3 +21,12 @@ export interface SearchResponse {
   results: CommitResult[];
   error?: string;
 }
+
+/** Internal type used by the GitHub fetcher before AI analysis */
+export interface RawCommit {
+  sha: string;
+  message: string;
+  author: string;
+  date: string;
+  diff: string;
+}
