@@ -22,9 +22,9 @@ export function DiffView({ diff, className }: DiffViewProps) {
           <div
             key={i}
             className={cn("px-2 -mx-2 rounded", {
-              "bg-green-950 text-green-300": line.startsWith("+"),
-              "bg-red-950 text-red-300": line.startsWith("-"),
-              "text-gray-400": line.startsWith("@"),
+              "bg-green-950 text-green-300": line.startsWith("+") && !line.startsWith("+++"),
+              "bg-red-950 text-red-300": line.startsWith("-") && !line.startsWith("---"),
+              "text-gray-400": line.startsWith("@") || line.startsWith("---") || line.startsWith("+++"),
               "text-gray-300": !line.startsWith("+") && !line.startsWith("-") && !line.startsWith("@"),
             })}
           >

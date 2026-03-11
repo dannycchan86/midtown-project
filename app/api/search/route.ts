@@ -14,6 +14,28 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    try {
+      const url = new URL(body.repoUrl);
+      if (url.hostname !== "github.com") {
+        return NextResponse.json<SearchResponse>(
+          { results: [], error: "repoUrl must be a GitHub URL" },
+          { status: 400 }
+        );
+      }
+    } catch {
+      return NextResponse.json<SearchResponse>(
+        { results: [], error: "repoUrl must be a valid URL" },
+        { status: 400 }
+      );
+    }
+
+    if (isNaN(Date.parse(body.startDate)) || isNaN(Date.parse(body.endDate))) {
+      return NextResponse.json<SearchResponse>(
+        { results: [], error: "startDate and endDate must be valid date strings" },
+        { status: 400 }
+      );
+    }
+
     // Mock delay to simulate processing
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
